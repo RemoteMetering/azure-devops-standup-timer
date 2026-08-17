@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Stand-up timer for Azure DevOps taskboard",
+  "version": "0.1.0",
+  "description": "Countdown label on the sprints taskboard. Starts when a person's group is expanded, resets on collapse, flashes red when time is up.",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://dev.azure.com/*"],
+      "js": [
+        "shared/defaults.js",
+        "shared/storage.js",
+        "content/selectors.js",
+        "content/taskboard-timer.js"
+      ],
+      "css": ["content/timer.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": false
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "standup-timer@metronomic.global",
+      "strict_min_version": "115.0"
+    }
+  }
+}

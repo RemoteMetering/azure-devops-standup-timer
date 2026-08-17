@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stand-up timer settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <h1>Stand-up timer</h1>
+
+  <form id="settings-form">
+    <label for="duration">Time per person (seconds)</label>
+    <input id="duration" type="number" min="10" max="3600" step="1" required>
+    <p class="hint">Between 10 and 3600 seconds. Applies from the next countdown.</p>
+
+    <label class="checkbox-row">
+      <input id="debug" type="checkbox">
+      Debug logging in the browser console
+    </label>
+
+    <button type="submit">Save</button>
+    <span id="status" role="status"></span>
+  </form>
+
+  <script src="../shared/defaults.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
