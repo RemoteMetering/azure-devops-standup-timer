@@ -4,6 +4,12 @@
   "version": "0.1.0",
   "description": "Countdown label on the sprints taskboard. Starts when a person's group is expanded, resets on collapse, flashes red when time is up.",
   "permissions": ["storage"],
+  "icons": {
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
+  },
   "content_scripts": [
     {
       "matches": ["https://dev.azure.com/*"],
