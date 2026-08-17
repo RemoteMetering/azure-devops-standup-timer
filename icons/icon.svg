@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Source artwork for the extension icon. PNGs are generated from the same
+       geometry by icons/generate-icons.py -->
+  <!-- top button -->
+  <rect x="52" y="8" width="24" height="14" rx="4" fill="#0078d4"/>
+  <!-- body ring -->
+  <circle cx="64" cy="72" r="48" fill="#0078d4"/>
+  <!-- face -->
+  <circle cx="64" cy="72" r="38" fill="#ffffff"/>
+  <!-- remaining-time wedge: 12 o'clock sweeping 120 degrees clockwise -->
+  <path d="M64 72 L64 34 A38 38 0 0 1 96.9 91 Z" fill="#d13438"/>
+  <!-- centre pin -->
+  <circle cx="64" cy="72" r="6" fill="#0078d4"/>
+</svg>
