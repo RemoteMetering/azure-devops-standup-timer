@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extName__",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "__MSG_extDescription__",
   "default_locale": "en",
   "author": "METRONOMIC",
@@ -21,7 +21,8 @@
     }
   },
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js"],
+    "service_worker": "background.js"
   },
   "commands": {
     "reset-timer": {
@@ -52,7 +53,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "standup-timer@metronomic.global",
-      "strict_min_version": "115.0",
+      "strict_min_version": "121.0",
       "data_collection_permissions": {
         "required": ["none"]
       }
