@@ -1,0 +1,18 @@
+{
+  "extName": {
+    "message": "Stand-up timer for Azure DevOps taskboard",
+    "description": "Extension name shown in the add-ons manager and on the store listing."
+  },
+  "extDescription": {
+    "message": "Countdown label on the sprints taskboard. Starts when a person's group is expanded, resets on collapse, flashes red when time is up.",
+    "description": "Extension description shown in the add-ons manager and on the store listing."
+  },
+  "actionTitle": {
+    "message": "Stand-up timer settings",
+    "description": "Tooltip on the toolbar button. Clicking the button opens the options page."
+  },
+  "commandResetDescription": {
+    "message": "Reset the running countdown",
+    "description": "Shown in the manage shortcuts UI for the reset-timer command."
+  }
+}

@@ -5,6 +5,7 @@
 
   var sel = ns.selectors;
   var storage = ns.storage;
+  var api = globalThis.chrome || globalThis.browser;
 
   // Match the whole sprints hub rather than only /taskboard/, in case the
   // New Boards Hub uses a different tab segment. Activation on the wrong
@@ -45,6 +46,15 @@
   init();
 
   function init() {
+    // The background page relays the reset-timer keyboard command here.
+    api.runtime.onMessage.addListener(function (message) {
+      if (!message || message.type !== 'standup-timer:reset') return;
+      if (state === 'RUNNING' || state === 'EXPIRED') {
+        sel.debugLog('reset requested via keyboard command');
+        resetTracking('IDLE');
+      }
+    });
+
     storage.getSettings().then(function (loaded) {
       settings = loaded;
       sel.setDebug(settings.debug);
