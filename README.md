@@ -9,7 +9,7 @@ A browser extension that shows a countdown label on the sprints taskboard at dev
 - Expand all and Collapse all are ignored so bulk actions never start a timer.
 - When time runs out the label flashes red.
 
-The time per person is set on the extension's options page (default 120 seconds).
+The time per person is set on the extension's options page (default 90 seconds).
 
 ## Why a browser extension
 
