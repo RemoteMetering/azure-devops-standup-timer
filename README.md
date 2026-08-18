@@ -12,6 +12,12 @@ A browser extension that shows a countdown label on the sprints taskboard at dev
 
 The time per person is set on the extension's options page (default 90 seconds).
 
+## Extra time for some people
+
+Some people need longer than the rest. On the options page, list those people one per line and set how many extra seconds they get on top of the base time. A person on the list gets base plus extra, everyone else gets the base time.
+
+The board only exposes display names, so entries are matched against the name shown on the group header. Matching ignores case and punctuation and works on whole words, so `Marco Muller`, `marco` and `marco.muller` all match "Marco Muller" while `marc` matches nothing. A first or last name on its own is enough, as long as it is unique on your board. Email addresses and Azure DevOps sign-in names do not match, because the taskboard never renders them.
+
 ## Why a browser extension
 
 Azure DevOps marketplace extensions run in sandboxed iframes at fixed contribution points. They cannot overlay the taskboard, read the view options, or observe expand and collapse. A content script can, at the cost of depending on undocumented page markup (see maintenance below).
@@ -40,6 +46,7 @@ If the diagnostics show zero person groups or wrong names, the selectors in `con
 - `content/taskboard-timer.js` watches for SPA navigation to `/_sprints/taskboard/`, then observes the board for `aria-expanded` changes and node replacements. A small state machine (inactive, idle, running, expired) drives the label. The countdown uses a stored deadline so background tab throttling cannot drift it.
 - `content/selectors.js` holds every selector as an ordered candidate list with fallbacks.
 - `shared/storage.js` wraps `chrome.storage.sync` so settings sync across the browsers and propagate live to open tabs.
+- `shared/names.js` holds the display name matching used for the extra time list, shared by the timer and the options page so both agree on what counts as a match.
 
 ## Known limits
 

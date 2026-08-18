@@ -25,6 +25,17 @@ input[type="number"] {
   font-size: 14px;
 }
 
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #8a8886;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+
 .hint {
   color: #605e5c;
   font-size: 12px;
@@ -68,7 +79,8 @@ button:hover {
     color: #f3f2f1;
   }
 
-  input[type="number"] {
+  input[type="number"],
+  textarea {
     background: #252423;
     border-color: #605e5c;
     color: #f3f2f1;

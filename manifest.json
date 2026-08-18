@@ -37,6 +37,7 @@
       "matches": ["https://dev.azure.com/*"],
       "js": [
         "shared/defaults.js",
+        "shared/names.js",
         "shared/storage.js",
         "content/selectors.js",
         "content/taskboard-timer.js"
