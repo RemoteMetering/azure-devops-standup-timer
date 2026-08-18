@@ -13,6 +13,15 @@
     <input id="duration" type="number" min="10" max="3600" step="1" required>
     <p class="hint">Between 10 and 3600 seconds. Applies from the next countdown.</p>
 
+    <label for="extra-names">People who get extra time</label>
+    <textarea id="extra-names" rows="4" spellcheck="false"
+      placeholder="One name per line"></textarea>
+    <p class="hint">Names as they appear on the board, one per line. A first or last name on its own is enough. Leave empty to give everyone the same time.</p>
+
+    <label for="extra-seconds">Extra time (seconds)</label>
+    <input id="extra-seconds" type="number" min="0" max="3600" step="1" required>
+    <p class="hint">Added to the time per person for the people listed above.</p>
+
     <label class="checkbox-row">
       <input id="count-overtime" type="checkbox">
       Count backwards after time runs out
@@ -29,6 +38,7 @@
   </form>
 
   <script src="../shared/defaults.js"></script>
+  <script src="../shared/names.js"></script>
   <script src="../shared/storage.js"></script>
   <script src="options.js"></script>
 </body>

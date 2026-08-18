@@ -5,6 +5,7 @@
 
   var sel = ns.selectors;
   var storage = ns.storage;
+  var names = ns.names;
   var api = globalThis.chrome || globalThis.browser;
 
   // Match the whole sprints hub rather than only /taskboard/, in case the
@@ -63,6 +64,12 @@
         if (changes.durationSeconds) {
           // Applies to the next countdown, a running one keeps its deadline.
           settings.durationSeconds = changes.durationSeconds.newValue;
+        }
+        if (changes.extraTimeNames) {
+          settings.extraTimeNames = changes.extraTimeNames.newValue;
+        }
+        if (changes.extraTimeSeconds) {
+          settings.extraTimeSeconds = changes.extraTimeSeconds.newValue;
         }
         if (changes.countOvertime) {
           settings.countOvertime = changes.countOvertime.newValue;
@@ -275,12 +282,28 @@
     return key;
   }
 
+  // Base duration, plus the extra allowance when this person is on the
+  // extra time list. Guards against a bad stored value so a broken setting
+  // cannot produce a NaN deadline.
+  function durationForPerson(name) {
+    var base = Number(settings.durationSeconds);
+    if (!isFinite(base) || base <= 0) base = ns.DEFAULT_SETTINGS.durationSeconds;
+    if (!names || !names.matchesAnyEntry(name, settings.extraTimeNames)) return base;
+    var extra = Number(settings.extraTimeSeconds);
+    if (!isFinite(extra) || extra <= 0) return base;
+    return base + extra;
+  }
+
   function startCountdown(key, name) {
     trackedKey = key;
     trackedName = name;
-    deadline = Date.now() + settings.durationSeconds * 1000;
+    var seconds = durationForPerson(name);
+    deadline = Date.now() + seconds * 1000;
     state = 'RUNNING';
-    sel.debugLog('countdown started for', name, settings.durationSeconds + 's');
+    sel.debugLog(
+      'countdown started for', name, seconds + 's',
+      seconds > settings.durationSeconds ? '(includes extra time)' : ''
+    );
     startTicking();
     render();
   }
@@ -326,8 +349,28 @@
     nameEl.className = 'standup-timer-name';
     var timeEl = document.createElement('span');
     timeEl.className = 'standup-timer-time';
+
+    // The label itself stays pointer-events: none so it never swallows board
+    // clicks. Only this button opts back in.
+    var closeEl = document.createElement('button');
+    closeEl.className = 'standup-timer-close';
+    closeEl.type = 'button';
+    closeEl.title = 'Dismiss timer';
+    closeEl.setAttribute('aria-label', 'Dismiss stand-up timer');
+    closeEl.textContent = '×';
+    closeEl.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      sel.debugLog('dismissed via close button');
+      // Same reset as the keyboard command. The tracked person stays in
+      // prevGroupStates as expanded, so the timer only returns when someone
+      // is collapsed and expanded again.
+      resetTracking('IDLE');
+    });
+
     label.appendChild(nameEl);
     label.appendChild(timeEl);
+    label.appendChild(closeEl);
     document.body.appendChild(label);
   }
 

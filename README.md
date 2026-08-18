@@ -1,15 +1,22 @@
 # Stand-up timer for the Azure DevOps sprints taskboard
 
-A browser extension that shows a countdown label on the sprints taskboard at dev.azure.com. It has no controls on screen. It only reacts to how you already run stand-up:
+A browser extension that shows a countdown label on the sprints taskboard at dev.azure.com. Apart from a close button on the label it has no controls on screen. It only reacts to how you already run stand-up:
 
 - Active only when Group by is Assigned To and the person filter is All.
 - Expanding a person's group starts the countdown for that person.
 - Expanding another person switches to them and restarts the countdown.
 - Collapsing the tracked person resets and hides the timer.
 - Expand all and Collapse all are ignored so bulk actions never start a timer.
+- The close button on the label dismisses the countdown without collapsing anyone. Expanding a person again starts a fresh countdown.
 - When time runs out the label flashes red and counts backwards to show how far over time the speaker is. The backwards counting can be turned off on the options page.
 
 The time per person is set on the extension's options page (default 90 seconds).
+
+## Extra time for some people
+
+Some people need longer than the rest. On the options page, list those people one per line and set how many extra seconds they get on top of the base time. A person on the list gets base plus extra, everyone else gets the base time.
+
+The board only exposes display names, so entries are matched against the name shown on the group header. Matching ignores case and punctuation and works on whole words, so `Marco Muller`, `marco` and `marco.muller` all match "Marco Muller" while `marc` matches nothing. A first or last name on its own is enough, as long as it is unique on your board. Email addresses and Azure DevOps sign-in names do not match, because the taskboard never renders them.
 
 ## Why a browser extension
 
@@ -39,6 +46,7 @@ If the diagnostics show zero person groups or wrong names, the selectors in `con
 - `content/taskboard-timer.js` watches for SPA navigation to `/_sprints/taskboard/`, then observes the board for `aria-expanded` changes and node replacements. A small state machine (inactive, idle, running, expired) drives the label. The countdown uses a stored deadline so background tab throttling cannot drift it.
 - `content/selectors.js` holds every selector as an ordered candidate list with fallbacks.
 - `shared/storage.js` wraps `chrome.storage.sync` so settings sync across the browsers and propagate live to open tabs.
+- `shared/names.js` holds the display name matching used for the extra time list, shared by the timer and the options page so both agree on what counts as a match.
 
 ## Known limits
 
