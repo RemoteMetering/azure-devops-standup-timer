@@ -5,12 +5,14 @@
 
   var form = document.getElementById('settings-form');
   var durationInput = document.getElementById('duration');
+  var countOvertimeInput = document.getElementById('count-overtime');
   var debugInput = document.getElementById('debug');
   var status = document.getElementById('status');
   var statusTimer = null;
 
   storage.getSettings().then(function (settings) {
     durationInput.value = settings.durationSeconds;
+    countOvertimeInput.checked = settings.countOvertime;
     debugInput.checked = settings.debug;
   });
 
@@ -24,7 +26,11 @@
     }
 
     storage
-      .saveSettings({ durationSeconds: duration, debug: debugInput.checked })
+      .saveSettings({
+        durationSeconds: duration,
+        countOvertime: countOvertimeInput.checked,
+        debug: debugInput.checked
+      })
       .then(function () {
         showStatus('Saved.', false);
       })

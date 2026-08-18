@@ -64,6 +64,9 @@
           // Applies to the next countdown, a running one keeps its deadline.
           settings.durationSeconds = changes.durationSeconds.newValue;
         }
+        if (changes.countOvertime) {
+          settings.countOvertime = changes.countOvertime.newValue;
+        }
         if (changes.debug) {
           settings.debug = changes.debug.newValue;
           sel.setDebug(settings.debug);
@@ -335,6 +338,14 @@
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
 
+  function formatOvertime(ms) {
+    var totalSeconds = Math.max(0, Math.floor(ms / 1000));
+    var minutes = Math.floor(totalSeconds / 60);
+    var seconds = totalSeconds % 60;
+    var text = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    return totalSeconds === 0 ? text : '-' + text;
+  }
+
   function render() {
     if (!label) return;
     var visible = state === 'RUNNING' || state === 'EXPIRED';
@@ -343,6 +354,10 @@
     if (!visible) return;
     label.querySelector('.standup-timer-name').textContent = trackedName || '';
     label.querySelector('.standup-timer-time').textContent =
-      state === 'EXPIRED' ? '0:00' : formatRemaining(deadline - Date.now());
+      state === 'EXPIRED'
+        ? settings.countOvertime
+          ? formatOvertime(Date.now() - deadline)
+          : '0:00'
+        : formatRemaining(deadline - Date.now());
   }
 })();

@@ -7,7 +7,7 @@ A browser extension that shows a countdown label on the sprints taskboard at dev
 - Expanding another person switches to them and restarts the countdown.
 - Collapsing the tracked person resets and hides the timer.
 - Expand all and Collapse all are ignored so bulk actions never start a timer.
-- When time runs out the label flashes red.
+- When time runs out the label flashes red and counts backwards to show how far over time the speaker is. The backwards counting can be turned off on the options page.
 
 The time per person is set on the extension's options page (default 90 seconds).
 
