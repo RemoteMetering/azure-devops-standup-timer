@@ -1,12 +1,13 @@
 # Stand-up timer for the Azure DevOps sprints taskboard
 
-A browser extension that shows a countdown label on the sprints taskboard at dev.azure.com. It has no controls on screen. It only reacts to how you already run stand-up:
+A browser extension that shows a countdown label on the sprints taskboard at dev.azure.com. Apart from a close button on the label it has no controls on screen. It only reacts to how you already run stand-up:
 
 - Active only when Group by is Assigned To and the person filter is All.
 - Expanding a person's group starts the countdown for that person.
 - Expanding another person switches to them and restarts the countdown.
 - Collapsing the tracked person resets and hides the timer.
 - Expand all and Collapse all are ignored so bulk actions never start a timer.
+- The close button on the label dismisses the countdown without collapsing anyone. Expanding a person again starts a fresh countdown.
 - When time runs out the label flashes red and counts backwards to show how far over time the speaker is. The backwards counting can be turned off on the options page.
 
 The time per person is set on the extension's options page (default 90 seconds).

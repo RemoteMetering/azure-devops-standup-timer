@@ -326,8 +326,28 @@
     nameEl.className = 'standup-timer-name';
     var timeEl = document.createElement('span');
     timeEl.className = 'standup-timer-time';
+
+    // The label itself stays pointer-events: none so it never swallows board
+    // clicks. Only this button opts back in.
+    var closeEl = document.createElement('button');
+    closeEl.className = 'standup-timer-close';
+    closeEl.type = 'button';
+    closeEl.title = 'Dismiss timer';
+    closeEl.setAttribute('aria-label', 'Dismiss stand-up timer');
+    closeEl.textContent = '×';
+    closeEl.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      sel.debugLog('dismissed via close button');
+      // Same reset as the keyboard command. The tracked person stays in
+      // prevGroupStates as expanded, so the timer only returns when someone
+      // is collapsed and expanded again.
+      resetTracking('IDLE');
+    });
+
     label.appendChild(nameEl);
     label.appendChild(timeEl);
+    label.appendChild(closeEl);
     document.body.appendChild(label);
   }
 

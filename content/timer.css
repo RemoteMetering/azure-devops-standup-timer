@@ -34,6 +34,44 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Every property is set explicitly because Azure DevOps styles buttons
+   broadly and the content script cannot rely on a reset. */
+.standup-timer-close {
+  pointer-events: auto;
+  align-self: center;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin: 0 -6px 0 2px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.standup-timer-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 1;
+}
+
+.standup-timer-close:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 1px;
+  opacity: 1;
+}
+
 .standup-timer-label.standup-timer-expired {
   background: #c50f1f;
   animation: standup-timer-flash 0.8s step-start infinite;
