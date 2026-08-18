@@ -3,6 +3,7 @@
   var ns = (window.__standupTimer = window.__standupTimer || {});
   ns.DEFAULT_SETTINGS = Object.freeze({
     durationSeconds: 90,
+    countOvertime: true,
     debug: false
   });
 })();
